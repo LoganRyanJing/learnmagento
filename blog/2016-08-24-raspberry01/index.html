@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>探索树莓派 | 夜声的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言我一直梦想着能够做出一款自制的飞行器，然后带着它游历世界各地，拍摄各种好玩的照片。听说树莓派似乎可以将我的编程专业发挥出来，既然如此，那么就开干吧。
+那么就从环境的搭建开始做起，并以此博客作为记录和总结，也方便各位树莓派以及飞行器爱好者参考和借鉴。此外，我写的代码都会公开出来，方便大家探讨。
+当然，本人初学者更希望有各路大神指点指点。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="探索树莓派">
+<meta property="og:url" content="http://blog.hyesheng.com/2016-08-24-raspberry01/index.html">
+<meta property="og:site_name" content="夜声的博客">
+<meta property="og:description" content="前言我一直梦想着能够做出一款自制的飞行器，然后带着它游历世界各地，拍摄各种好玩的照片。听说树莓派似乎可以将我的编程专业发挥出来，既然如此，那么就开干吧。
+那么就从环境的搭建开始做起，并以此博客作为记录和总结，也方便各位树莓派以及飞行器爱好者参考和借鉴。此外，我写的代码都会公开出来，方便大家探讨。
+当然，本人初学者更希望有各路大神指点指点。">
+<meta property="og:updated_time" content="2016-09-01T13:16:53.056Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="探索树莓派">
+<meta name="twitter:description" content="前言我一直梦想着能够做出一款自制的飞行器，然后带着它游历世界各地，拍摄各种好玩的照片。听说树莓派似乎可以将我的编程专业发挥出来，既然如此，那么就开干吧。
+那么就从环境的搭建开始做起，并以此博客作为记录和总结，也方便各位树莓派以及飞行器爱好者参考和借鉴。此外，我写的代码都会公开出来，方便大家探讨。
+当然，本人初学者更希望有各路大神指点指点。">
+  
+    <link rel="alternative" href="/atom.xml" title="夜声的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/uploads/author.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">夜声</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">时间观念，进度观念有待提高的二货</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/随笔/">随笔</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/dasheng523" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/3905263481/" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+								<a class="mail" target="_blank" href="/dasheng523@163.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/clojure/" style="font-size: 10px;">clojure</a> <a href="/tags/css/" style="font-size: 13.33px;">css</a> <a href="/tags/github/" style="font-size: 13.33px;">github</a> <a href="/tags/iScroll/" style="font-size: 10px;">iScroll</a> <a href="/tags/javascript/" style="font-size: 13.33px;">javascript</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/微信/" style="font-size: 10px;">微信</a> <a href="/tags/树莓派/" style="font-size: 16.67px;">树莓派</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/游戏/" style="font-size: 13.33px;">游戏</a> <a href="/tags/设计/" style="font-size: 10px;">设计</a> <a href="/tags/软件设计/" style="font-size: 10px;">软件设计</a> <a href="/tags/随笔/" style="font-size: 20px;">随笔</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">今年要来一次人生的挑战。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">夜声</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/uploads/author.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">夜声</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">时间观念，进度观念有待提高的二货</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/随笔/">随笔</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/dasheng523" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/3905263481/" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+						<a class="mail" target="_blank" href="/dasheng523@163.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-raspberry01" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016-08-24-raspberry01/" class="article-date">
+  	<time datetime="2016-08-24T13:43:42.000Z" itemprop="datePublished">2016-08-24</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      探索树莓派
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树莓派/">树莓派</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我一直梦想着能够做出一款自制的飞行器，然后带着它游历世界各地，拍摄各种好玩的照片。听说树莓派似乎可以将我的编程专业发挥出来，既然如此，那么就开干吧。</p>
+<p>那么就从环境的搭建开始做起，并以此博客作为记录和总结，也方便各位树莓派以及飞行器爱好者参考和借鉴。此外，我写的代码都会公开出来，方便大家探讨。</p>
+<p>当然，本人初学者更希望有各路大神指点指点。<br><a id="more"></a></p>
+<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><p>在玩转树莓派之前，当然需要先准备一些东西，这里我罗列了一些必须的东西。</p>
+<ul>
+<li>树莓派。这是主角。我用的是第二代树莓派。现在貌似都第三代都出现了。</li>
+<li>无线网卡。树莓派没有自带无线网卡，不过可以插网线。</li>
+<li>SD卡。是的，树莓派需要一张装东西的卡。这张卡当然越大越好，尽量大于8G。</li>
+<li>网线。在驱动无线网卡之前，需要用网线连接。</li>
+<li>读卡器。需要把树莓派系统烧录进SD卡。</li>
+<li>显示器。可以使用电脑显示器，不过还需要一根hdmi转换线。</li>
+<li>鼠标和键盘。</li>
+</ul>
+<p>当然，要做出飞行器肯定不仅仅买这些东西而已，不过学飞之前还是先把树莓派玩起来再说吧。</p>
+<h3 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h3><p>既然选择了自制飞行器，那么编程是在所难免的。由于C语言可能更适合嵌入式的开发，而且我前段时间学了一下C语言，我就选择C语言作为开发语言了。据说python也可以做树莓派的开发。<br>关于搭建C语言环境的教程，大家可以看看<a href="http://jingyan.baidu.com/article/870c6fc32fa08fb03fe4beae.html" target="_blank" rel="external">Win7下的C语言开发环境</a>。</p>
+<p>此外方便与树莓派的系统进行交互，我安装了<a href="http://www.netsarang.com/products/xsh_overview.html" target="_blank" rel="external">xshell</a>软件。</p>
+<h3 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h3><p>好了，现在到了重头戏，安装树莓派系统。</p>
+<h4 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h4><p>安装之前，需要先下载两个东西：</p>
+<ul>
+<li>SD卡格式化工具，点击进入<a href="https://www.sdcard.org/downloads/formatter_4/eula_windows/" target="_blank" rel="external">下载页面</a>，将页面拖到最后，点击“accept”即可开始下载。</li>
+<li>NOOBS安装文件，<a href="https://www.raspberrypi.org/downloads/" target="_blank" rel="external">下载页面</a></li>
+</ul>
+<p>下载的同时，将SD卡插入读卡器并连接电脑。</p>
+<h4 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h4><p>下载完毕后，先解压安装SD卡格式化工具，然后打开软件，选择SD卡对应的磁盘，选项设置那设置 “逻辑大小调整” 改成 “关闭（OFF）”，最后点击格式化，等待片刻即可。</p>
+<h4 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h4><p>完成第二步之后，只需要将noobs解压出来，复制到SD卡的根目录下。注意，必须将noobs的内容放在根目录下。</p>
+<h4 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a>第四步</h4><p>完成复制之后，把SD卡插入树莓派，将显示器，鼠标，键盘，电源统统连接到树莓派。通电后，显示器就会出现系统的安装界面啦。由于我当时安装的时候，并没有拍照截图，所以额。。。大家按照提示，享受安装过程吧。大概20分钟左右，树莓派的系统就能安装成功了。</p>
+<h4 id="第五步"><a href="#第五步" class="headerlink" title="第五步"></a>第五步</h4><p>安装之后，别忘记让设置一下wiff密码，点击屏幕的右上角wiff图标，输入密码即可。<br>这样，你的树莓派就摇身一变成为了一台能上网的电脑啦（虽然简陋了点）。顶部的工具栏有一个浏览器可以让你畅游互联网。</p>
+<p>另外，点击顶部工具栏的terminal图标，启动一个终端，输入<code>ifconfig</code>，查看树莓派的IP，待会用到。</p>
+<h4 id="第六步"><a href="#第六步" class="headerlink" title="第六步"></a>第六步</h4><p>尽管树莓派系统给我们提供了友好的界面，但是毕竟太简陋了，还不如我们直接用Linux命令来完成各种任务。而且一个小小树莓派，却要占据一整块显示器，太浪费资源了。所以我们需要通过xshell软件来跟树莓派交互，以命令的形式控制树莓派为我们做各种事情。详细使用教程在<a href="http://jingyan.baidu.com/article/295430f13fb4db0c7f005065.html" target="_blank" rel="external">这里</a>。教程中需要使用到的IP就是第五步所得到的了。</p>
+<ul>
+<li>树莓派默认用户名：pi</li>
+<li>默认密码：raspberry</li>
+</ul>
+<p>修改密码的命令为：<code>passwd</code></p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>好了，虽然我总结了各种步骤，但想必大家还是会碰到各种各样的坑。如果遇到问题，可以发我邮件，我能解决的尽量帮忙。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016-09-01-raspberry02/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          树莓派---GPIO应用详解
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016-02-24-opencv/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">opencv</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="raspberry01" data-title="探索树莓派" data-url="http://blog.hyesheng.com/2016-08-24-raspberry01/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"hyesheng"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 夜声
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

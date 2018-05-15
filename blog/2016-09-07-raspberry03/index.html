@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>树莓派---JAVA操作GPIO | 夜声的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="引言我身边大部分朋友是使用JAVA的，他们都对树莓派有不少兴趣，所以我干脆也探索一下如何使用JAVA来操作树莓派的GPIO接口，并写此文给想尝试树莓派的JAVA程序员参考。
+Pi4j简要说明要使用JAVA操作树莓派的GPIO，要借助一个第三方库：PI4J。以下是PI4J的官方说明：
+
+This project is intended to provide a friendly object-ori">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树莓派---JAVA操作GPIO">
+<meta property="og:url" content="http://blog.hyesheng.com/2016-09-07-raspberry03/index.html">
+<meta property="og:site_name" content="夜声的博客">
+<meta property="og:description" content="引言我身边大部分朋友是使用JAVA的，他们都对树莓派有不少兴趣，所以我干脆也探索一下如何使用JAVA来操作树莓派的GPIO接口，并写此文给想尝试树莓派的JAVA程序员参考。
+Pi4j简要说明要使用JAVA操作树莓派的GPIO，要借助一个第三方库：PI4J。以下是PI4J的官方说明：
+
+This project is intended to provide a friendly object-ori">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/171439-82a929c133b6f4b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/171439-9cc7ad6a2b5a33d4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/171439-63f0576ff1be3191.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/171439-91841dcffb6b6717.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/171439-cd6393b2cc4ba42e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/171439-3e4952e9f4ef9b8b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/171439-cd6393b2cc4ba42e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/171439-3e4952e9f4ef9b8b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/171439-cd6393b2cc4ba42e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/171439-3e4952e9f4ef9b8b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2016-09-21T15:18:11.830Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="树莓派---JAVA操作GPIO">
+<meta name="twitter:description" content="引言我身边大部分朋友是使用JAVA的，他们都对树莓派有不少兴趣，所以我干脆也探索一下如何使用JAVA来操作树莓派的GPIO接口，并写此文给想尝试树莓派的JAVA程序员参考。
+Pi4j简要说明要使用JAVA操作树莓派的GPIO，要借助一个第三方库：PI4J。以下是PI4J的官方说明：
+
+This project is intended to provide a friendly object-ori">
+  
+    <link rel="alternative" href="/atom.xml" title="夜声的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/uploads/author.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">夜声</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">时间观念，进度观念有待提高的二货</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/随笔/">随笔</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/dasheng523" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/3905263481/" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+								<a class="mail" target="_blank" href="/dasheng523@163.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/clojure/" style="font-size: 10px;">clojure</a> <a href="/tags/css/" style="font-size: 13.33px;">css</a> <a href="/tags/github/" style="font-size: 13.33px;">github</a> <a href="/tags/iScroll/" style="font-size: 10px;">iScroll</a> <a href="/tags/javascript/" style="font-size: 13.33px;">javascript</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/微信/" style="font-size: 10px;">微信</a> <a href="/tags/树莓派/" style="font-size: 16.67px;">树莓派</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/游戏/" style="font-size: 13.33px;">游戏</a> <a href="/tags/设计/" style="font-size: 10px;">设计</a> <a href="/tags/软件设计/" style="font-size: 10px;">软件设计</a> <a href="/tags/随笔/" style="font-size: 20px;">随笔</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">今年要来一次人生的挑战。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">夜声</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/uploads/author.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">夜声</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">时间观念，进度观念有待提高的二货</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/随笔/">随笔</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/dasheng523" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/3905263481/" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+						<a class="mail" target="_blank" href="/dasheng523@163.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-raspberry03" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016-09-07-raspberry03/" class="article-date">
+  	<time datetime="2016-09-07T09:05:03.000Z" itemprop="datePublished">2016-09-07</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      树莓派---JAVA操作GPIO
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树莓派/">树莓派</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>我身边大部分朋友是使用JAVA的，他们都对树莓派有不少兴趣，所以我干脆也探索一下如何使用JAVA来操作树莓派的GPIO接口，并写此文给想尝试树莓派的JAVA程序员参考。</p>
+<h2 id="Pi4j简要说明"><a href="#Pi4j简要说明" class="headerlink" title="Pi4j简要说明"></a>Pi4j简要说明</h2><p><img src="http://upload-images.jianshu.io/upload_images/171439-82a929c133b6f4b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>要使用JAVA操作树莓派的GPIO，要借助一个第三方库：<a href="http://pi4j.com/" target="_blank" rel="external">PI4J</a>。以下是PI4J的官方说明：</p>
+<blockquote>
+<p>This project is intended to provide a friendly object-oriented I/O API and implementation libraries for Java Programmers to access the full I/O capabilities of the Raspberry Pi platform. This project abstracts the low-level native integration and interrupt monitoring to enable Java programmers to focus on implementing their application business logic.</p>
+</blockquote>
+<p>Pi4j是依赖wiringpi封装而成的，不仅能操作GPIO，还能使用I2C协议和SPI协议与硬件设备进行交互。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><strong>安装PI4J之前，你需要先在树莓派里面安装两样东西：</strong></p>
+<ul>
+<li><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="external">JDK</a></li>
+<li><a href="http://wiringpi.com/" target="_blank" rel="external">WiringPi原生库</a></li>
+</ul>
+<p>最新版的Raspbian系统貌似已经默认安装这两样东西了的。</p>
+<p><strong>安装PI4J有两种方式：</strong></p>
+<ul>
+<li><p>方式一（推荐），执行以下命令即可安装完成：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -<span class="keyword">s</span> <span class="built_in">get</span>.pi4j.<span class="keyword">com</span> | sudo bash</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>方式二，下载安装包来安装，下载地址为<a href="http://get.pi4j.com/download/pi4j-1.1.deb，下载完毕后执行以下命令，即可完成安装：" target="_blank" rel="external">http://get.pi4j.com/download/pi4j-1.1.deb，下载完毕后执行以下命令，即可完成安装：</a></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">sudo</span> <span class="tag">dpkg</span> <span class="tag">-i</span> <span class="tag">pi4j-1</span><span class="class">.1</span><span class="class">.deb</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>安装之后，PI4J的库放在以下目录：<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/pi4j/<span class="class"><span class="keyword">lib</span></span></span><br></pre></td></tr></table></figure></p>
+<p><strong>如果你想更新PI4J，可以执行以下命令：</strong><br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> install pi4j</span><br></pre></td></tr></table></figure></p>
+<p>或者<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pi4j <span class="comment">--update</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>如果想要卸载PI4J，可以执行以下命令</strong><br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> remove pi4j 或 pi4j <span class="comment">--uninstall</span></span><br></pre></td></tr></table></figure></p>
+<p>完全卸载方式：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -<span class="keyword">s</span> <span class="built_in">get</span>.pi4j.<span class="keyword">com</span>/uninstall | sudo bash</span><br></pre></td></tr></table></figure></p>
+<h2 id="PI4J的官方demo"><a href="#PI4J的官方demo" class="headerlink" title="PI4J的官方demo"></a>PI4J的官方demo</h2><p>安装PI4J之后，就应该尽快入门PI4J了，而学习PI4J最好的办法就是一边看着官方demo，一边动手写代码。<br>如果你按照上面的方式安装PI4J，那么官方文档在以下目录：<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/<span class="preprocessor">opt</span>/pi4j/examples</span><br></pre></td></tr></table></figure></p>
+<p>进入该目录，执行以下命令，可编译源代码：<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="regexp">/opt/</span>pi4j<span class="regexp">/examples/</span>build</span><br></pre></td></tr></table></figure></p>
+<p>编译之后，你可以随意运行某个demo，比如这里运行BlinkGpioExample，那么执行以下命令：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./<span class="command">run</span> BlinkGpioExample</span><br></pre></td></tr></table></figure></p>
+<h2 id="demo简要解析"><a href="#demo简要解析" class="headerlink" title="demo简要解析"></a>demo简要解析</h2><p>毕竟大家都是新手，光有代码恐怕还不能困惑，所以这里就拿一个例子讲解一下代码，方便大家入门。</p>
+<p>在讲解之前，大家除了准备树莓派，还要先自备好led灯，以及一个开关按钮（某宝上搜有很多），因为大多的官方例子里都使用到。</p>
+<p>好了，大家先看看两个图，这两个图表示这树莓派2（树莓派3<a href="http://pi4j.com/pins/model-3b-rev1.html" target="_blank" rel="external">点此</a>）上的针脚。也就是我们所说的GPIO。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/171439-9cc7ad6a2b5a33d4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图一"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/171439-63f0576ff1be3191.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图二"></p>
+<p>图一是真实树莓派的针脚图，图一的箭头1，箭头2指向图二顶头的两个针脚。这里需要注意的是，图二两边的粗体数字，这是PI4J的针脚编号。</p>
+<p><strong>好了，我们开始看代码，打开/opt/pi4j/examples/ControlGpioExample.java：</strong><br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">/<span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span> <span class="comment">#%L</span></span><br><span class="line"> <span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span> ORGANIZATION  :  Pi4J</span><br><span class="line"> <span class="keyword">*</span> PROJECT       :  Pi4J :: Java <span class="keyword">Examples</span></span><br><span class="line"> <span class="keyword">*</span> FILENAME      :  ControlGpioExample.java</span><br><span class="line"> <span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span> This file is part of the Pi4J project. More information about</span><br><span class="line"> <span class="keyword">*</span> this project can be found here:  http://www.pi4j.com/</span><br><span class="line"> <span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span>/</span><br><span class="line">import com.pi4j.io.gpio.GpioController;</span><br><span class="line">import com.pi4j.io.gpio.GpioFactory;</span><br><span class="line">import com.pi4j.io.gpio.GpioPinDigitalOutput;</span><br><span class="line">import com.pi4j.io.gpio.PinState;</span><br><span class="line">import com.pi4j.io.gpio.RaspiPin;</span><br><span class="line"></span><br><span class="line">/<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span> This example code demonstrates how to perform simple state</span><br><span class="line"> <span class="keyword">*</span> control of a GPIO pin on the Raspberry Pi.</span><br><span class="line"> <span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span> <span class="comment">@author Robert Savage</span></span><br><span class="line"> <span class="keyword">*</span>/</span><br><span class="line">public class ControlGpioExample &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) throws InterruptedException &#123;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"&lt;--Pi4J--&gt; GPIO Control Example ... started."</span>);</span><br><span class="line"></span><br><span class="line">        // create gpio controller</span><br><span class="line">        final GpioController gpio = GpioFactory.getInstance();</span><br><span class="line"></span><br><span class="line">        // provision gpio pin <span class="comment">#01 as an output pin and turn on</span></span><br><span class="line">        final GpioPinDigitalOutput pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_01, <span class="string">"MyLED"</span>, PinState.HIGH);</span><br><span class="line"></span><br><span class="line">        // set shutdown state for this pin</span><br><span class="line">        pin.setShutdownOptions(true, PinState.LOW);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"--&gt; GPIO state should be: ON"</span>);</span><br><span class="line"></span><br><span class="line">        Thread.sleep(5000);</span><br><span class="line"></span><br><span class="line">        // turn off gpio pin <span class="comment">#01</span></span><br><span class="line">        pin.low();</span><br><span class="line">        System.out.println(<span class="string">"--&gt; GPIO state should be: OFF"</span>);</span><br><span class="line"></span><br><span class="line">        Thread.sleep(5000);</span><br><span class="line"></span><br><span class="line">        // toggle the current state of gpio pin <span class="comment">#01 (should turn on)</span></span><br><span class="line">        pin.toggle();</span><br><span class="line">        System.out.println(<span class="string">"--&gt; GPIO state should be: ON"</span>);</span><br><span class="line"></span><br><span class="line">        Thread.sleep(5000);</span><br><span class="line"></span><br><span class="line">        // toggle the current state of gpio pin <span class="comment">#01  (should turn off)</span></span><br><span class="line">        pin.toggle();</span><br><span class="line">        System.out.println(<span class="string">"--&gt; GPIO state should be: OFF"</span>);</span><br><span class="line"></span><br><span class="line">        Thread.sleep(5000);</span><br><span class="line"></span><br><span class="line">        // turn on gpio pin <span class="comment">#01 for 1 second and then off</span></span><br><span class="line">        System.out.println(<span class="string">"--&gt; GPIO state should be: ON for only 1 second"</span>);</span><br><span class="line">        pin.pulse(1000, true); // set second argument to 'true' use a blocking call</span><br><span class="line"></span><br><span class="line">        // stop all GPIO activity/threads by shutting down the GPIO controller</span><br><span class="line">        // (this method will forcefully shutdown all GPIO monitoring threads and scheduled tasks)</span><br><span class="line">        gpio.shutdown();</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"Exiting ControlGpioExample"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>连接图</strong></p>
+<p>要查看上面代码的运行效果，需要按照如下图所示接入LED灯：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/171439-91841dcffb6b6717.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="连接图"></p>
+<p><strong>执行</strong></p>
+<p>连接之后，执行命令：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./<span class="command">run</span> ControlGpioExample</span><br></pre></td></tr></table></figure></p>
+<p><strong>输出</strong></p>
+<p>这个例子的LED输出应该是这样的：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/171439-cd6393b2cc4ba42e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>Turn ON for 5 seconds</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/171439-3e4952e9f4ef9b8b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>Turn OFF for 5 seconds</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/171439-cd6393b2cc4ba42e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>Turn ON for 5 seconds</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/171439-3e4952e9f4ef9b8b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>Turn OFF for 5 seconds</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/171439-cd6393b2cc4ba42e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>Turn ON for 1 second</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/171439-3e4952e9f4ef9b8b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>Turn OFF</p>
+<p><em>更多的例子解析，可以直接看PI4J的官方网站，非常详细。官方网站：<a href="http://pi4j.com/index.html" target="_blank" rel="external">http://pi4j.com/index.html</a></em></p>
+<h2 id="开发maven环境"><a href="#开发maven环境" class="headerlink" title="开发maven环境"></a>开发maven环境</h2><p>这里简要说一下maven开发环境。毕竟如果真要做一些好东西出来，自然少不了用maven来管理项目。</p>
+<p>在树莓派上安装maven，参考官方文档：<a href="http://maven.apache.org/install.html" target="_blank" rel="external">http://maven.apache.org/install.html</a></p>
+<p>PI4J的maven配置是：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>com.pi4j<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>pi4j-core<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.1<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>我的树莓派学习项目github地址：<a href="https://github.com/dasheng523/pi" target="_blank" rel="external">https://github.com/dasheng523/pi</a><br>我会一直学习，并加入一些模块的驱动开发代码。有兴趣的同学可以加入进来一起玩转树莓派。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016-09-19-raspberry04/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          raspberry04
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016-09-01-raspberry02/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">树莓派---GPIO应用详解</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="raspberry03" data-title="树莓派---JAVA操作GPIO" data-url="http://blog.hyesheng.com/2016-09-07-raspberry03/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"hyesheng"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 夜声
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

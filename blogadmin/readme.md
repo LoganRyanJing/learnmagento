@@ -1,0 +1,1 @@
+ln -s public/storage storage/app/public
